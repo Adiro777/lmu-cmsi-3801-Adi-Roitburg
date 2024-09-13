@@ -24,7 +24,6 @@ export function firstThenLowerCase(strings, predicate){
     }
   }
   return undefined
-
 }
 
 // Write your powers generator here
@@ -46,7 +45,6 @@ export function* powersGenerator({ofBase: base, upTo: limit}){
 export function say(string){
   let sentence = []
 
-
   function newWord(new_string){
     if (new_string === undefined){
       return sentence.join(" ")
@@ -54,7 +52,6 @@ export function say(string){
       sentence.push(new_string)
       return newWord
     }
-
   }
   return newWord(string)
 

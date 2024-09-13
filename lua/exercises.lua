@@ -49,7 +49,7 @@ function say(str)
   local words = {}
 
   if str ~= nil then
-    table.insert(words, str)  -- Add the initial word
+    table.insert(words, str)  
   end
 
   if str == nil and #words == 0 then
@@ -206,26 +206,5 @@ quatmeta = {
 Quaternion.new = function(a, b, c, d)
   return setmetatable({a = a, b = b, c = c, d = d}, quatmeta)
 end
-
-
-
-
-
--- Quaternion = (function (class)
---   class.new = function(a, b, c, d)
---     return setmetatable({a = a, b = b, c = c, d = d}, {
---       __index = {
-        -- coefficients = function(self)
-        --   return {self.a, self.b, self.c, self.d}
-        -- end
-
---       },
-      -- __add = function(self, other)
-      --   return class.new(self.a + other.a, self.b + other.b, self.c + other.c, self.d + other.d)
-      -- end
---     })
---     end
---   return class
--- end)({})
 
 

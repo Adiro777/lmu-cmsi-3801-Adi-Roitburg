@@ -35,10 +35,6 @@ def powers_generator(base: int, limit: int) -> Generator:
             exp += 1
             yield num
 
-
-
-
-
 # Write your say function here
 def say(string: Optional[str] = None) -> Callable[..., str]:
     list_of_words: list[str] = []
@@ -114,7 +110,6 @@ class Quaternion:
             return "0"
         
         return s
-
 
     def __add__(self, other) -> object:
         return Quaternion(self.a + other.a, self.b + other.b, self.c + other.c, self.d + other.d)
