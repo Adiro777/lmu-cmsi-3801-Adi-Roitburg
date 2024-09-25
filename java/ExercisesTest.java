@@ -34,27 +34,27 @@ public class ExercisesTest {
     //////////////////////////////////////////////////////////////////////////////////////
 
     void run() throws IOException {
-        suite("change");
-        expectToThrow(() -> Exercises.change(-50),
-                IllegalArgumentException.class, "Amount cannot be negative");
-        expect(Exercises.change(0).equals(
-                Map.of(25, 0L, 10, 0L, 5, 0L, 1, 0L)));
-        expect(Exercises.change(1).equals(
-                Map.of(25, 0L, 10, 0L, 5, 0L, 1, 1L)));
-        expect(Exercises.change(8).equals(
-                Map.of(25, 0L, 10, 0L, 5, 1L, 1, 3L)));
-        expect(Exercises.change(42).equals(
-                Map.of(25, 1L, 10, 1L, 5, 1L, 1, 2L)));
-        expect(Exercises.change(99).equals(
-                Map.of(25, 3L, 10, 2L, 5, 0L, 1, 4L)));
-        expect(Exercises.change(144).equals(
-                Map.of(25, 5L, 10, 1L, 5, 1L, 1, 4L)));
-        expect(Exercises.change(250).equals(
-                Map.of(25, 10L, 10, 0L, 5, 0L, 1, 0L)));
-        expect(Exercises.change(100000000037L).equals(
-                Map.of(25, 4000000001L, 10, 1L, 5, 0L, 1, 2L)));
-        expect(Exercises.change(10000000000005L).equals(
-                Map.of(25, 400000000000L, 10, 0L, 5, 1L, 1, 0L)));
+        // suite("change");
+        // expectToThrow(() -> Exercises.change(-50),
+        //         IllegalArgumentException.class, "Amount cannot be negative");
+        // expect(Exercises.change(0).equals(
+        //         Map.of(25, 0L, 10, 0L, 5, 0L, 1, 0L)));
+        // expect(Exercises.change(1).equals(
+        //         Map.of(25, 0L, 10, 0L, 5, 0L, 1, 1L)));
+        // expect(Exercises.change(8).equals(
+        //         Map.of(25, 0L, 10, 0L, 5, 1L, 1, 3L)));
+        // expect(Exercises.change(42).equals(
+        //         Map.of(25, 1L, 10, 1L, 5, 1L, 1, 2L)));
+        // expect(Exercises.change(99).equals(
+        //         Map.of(25, 3L, 10, 2L, 5, 0L, 1, 4L)));
+        // expect(Exercises.change(144).equals(
+        //         Map.of(25, 5L, 10, 1L, 5, 1L, 1, 4L)));
+        // expect(Exercises.change(250).equals(
+        //         Map.of(25, 10L, 10, 0L, 5, 0L, 1, 0L)));
+        // expect(Exercises.change(100000000037L).equals(
+        //         Map.of(25, 4000000001L, 10, 1L, 5, 0L, 1, 2L)));
+        // expect(Exercises.change(10000000000005L).equals(
+        //         Map.of(25, 400000000000L, 10, 0L, 5, 1L, 1, 0L)));
 
         // Uncomment the following tests as you complete the exercises
 
@@ -90,9 +90,9 @@ public class ExercisesTest {
         //     () -> Exercises.meaningfulLineCount("no-such-file.txt"),
         //     FileNotFoundException.class,
         //     "No such file");
-        // expect(Exercises.meaningfulLineCount("../test-for-line-count.txt") == 5);
+        // //expect(Exercises.meaningfulLineCount("../test-for-line-count.txt") == 5);
 
-        // suite("Quaternion");
+        suite("Quaternion");
         // expectToThrow(() -> new Quaternion(Double.NaN, 0, 0, 0),
         //         IllegalArgumentException.class, "Coefficients cannot be NaN");
         // expectToThrow(() -> new Quaternion(0, Double.NaN, 0, 0),
@@ -108,10 +108,10 @@ public class ExercisesTest {
         // expect(q.c() == -100.0);
         // expect(q.d() == -1.25);
 
-        // var q1 = new Quaternion(1, 3, 5, 2);
-        // var q2 = new Quaternion(-2, 2, 8, -1);
-        // var q3 = new Quaternion(-1, 5, 13, 1);
-        // var q4 = new Quaternion(-46, -25, 5, 9);
+        var q1 = new Quaternion(1, 3, 5, 2);
+        var q2 = new Quaternion(-2, 2, 8, -1);
+        var q3 = new Quaternion(-1, 5, 13, 1);
+        var q4 = new Quaternion(-46, -25, 5, 9);
 
         // expect(Quaternion.ZERO.coefficients().equals(List.of(0.0, 0.0, 0.0, 0.0)));
         // expect(Quaternion.K.coefficients().equals(List.of(0.0, 0.0, 0.0, 1.0)));

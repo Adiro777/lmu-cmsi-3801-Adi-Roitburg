@@ -16,7 +16,7 @@ def change(amount: int) -> dict[int, int]:
 
 
 # Write your first then lower case function here
-def first_then_lower_case(strings: list[str], function: Callable[[str], bool]) -> str:
+def first_then_lower_case(strings: list[str], function: Callable[[str], bool], /) -> str:
     for string in strings:
         if function(string) == True:
             return string.lower()
