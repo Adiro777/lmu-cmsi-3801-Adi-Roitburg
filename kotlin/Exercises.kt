@@ -35,6 +35,7 @@ fun say(word: String): Sentence{
     return Sentence(word, empty)
 }
 
+
 fun say(): Sentence{
     var empty: MutableList<String> = mutableListOf()
     return Sentence("", empty,)
@@ -195,3 +196,61 @@ data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double
 }
 
 // Write your Binary Search Tree interface and implementing classes here
+sealed interface BinarySearchTree{
+    fun size(): Int
+    fun insert(new_val: String): BinarySearchTree
+    fun contains(valToCheck: String): Boolean
+    override fun toString(): String
+    
+    object Empty: BinarySearchTree{
+        override fun size(): Int{
+            return 0
+        }
+
+        override fun insert(new_val: String): BinarySearchTree{
+            return Node(new_val, Empty, Empty)
+        }
+
+        override fun contains(valToCheck: String): Boolean{
+            return false
+        }
+
+        override fun toString(): String{
+            return "()"
+        }
+    }
+
+    data class Node(var value: String, var left: BinarySearchTree, var right: BinarySearchTree): BinarySearchTree{
+        override fun size(): Int{
+            return 1 + this.left.size() + this.right.size()
+        }
+
+        override fun insert(new_val: String): BinarySearchTree{
+            if (new_val.compareTo(this.value) > 0) {
+                return Node(this.value, this.left, this.right.insert(new_val))
+            } else if (new_val.compareTo(this.value) < 0) {
+                return Node(this.value, this.left.insert(new_val), this.right)
+            } else {
+                return this
+            }
+        }
+
+        override fun contains(valToCheck: String): Boolean{
+            if (valToCheck.compareTo(this.value) == 0) {
+                return true
+            } else if (valToCheck.compareTo(this.value) < 0) {
+                return this.left.contains(valToCheck)
+            } else {
+                return this.right.contains(valToCheck)
+            }
+        }
+
+        override fun toString(): String{
+            return ("(" + this.left + this.value + this.right + ")").replace("()", "")
+        }
+    }
+
+    
+}
+
+

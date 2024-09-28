@@ -226,16 +226,73 @@ record Quaternion(double a, double b, double c, double d) {
 }
 
 // Write your BinarySearchTree sealed interface and its implementations here
-// sealed interface BinarySearchTree permits Node, Empty{
-//     int size();
+sealed interface BinarySearchTree permits Empty, Node {
+    int size();
+    BinarySearchTree insert(String new_val);
+    Boolean contains(String valToCheck);
+    String toString();
 
-// }
+}
 
-// final class Node implements BinarySearchTree{
+final class Empty implements BinarySearchTree{
+    public int size(){
+        return 0;
+    }
+
+    public BinarySearchTree insert(String newVal){
+        return new Node(newVal, new Empty(), new Empty());
+    }
+
+    public Boolean contains(String valToCheck){
+        return false;
+    }
+
+    public String toString(){
+        return "()";
+    }
+}
+
+
+final class Node implements BinarySearchTree{
+    private String value;
+    private BinarySearchTree left;
+    private BinarySearchTree right;
+    public Node(String value, BinarySearchTree left, BinarySearchTree right){
+        this.value = value;
+        this.left = left;
+        this.right = right;
+    }
+
+    public int size(){
+        return 1 + this.left.size() + this.right.size();
+    }
+
+    public BinarySearchTree insert(String new_val) {
+        if (new_val.compareTo(this.value) > 0) {
+            return new Node(this.value, this.left, this.right.insert(new_val));
+        } else if (new_val.compareTo(this.value) < 0) {
+            return new Node(this.value, this.left.insert(new_val), this.right);
+        } else {
+            return this;
+        }
+    }
+
+    public Boolean contains(String valToCheck){
+        if (valToCheck.compareTo(this.value) == 0) {
+            return true; // The current node is the value we're looking for
+        } else if (valToCheck.compareTo(this.value) < 0) {
+            return this.left.contains(valToCheck); // Search the left subtree
+        } else {
+            return this.right.contains(valToCheck); // Search the right subtree
+        }
+    }
 
     
-// }
 
-// final class Empty implements BinarySearchTree{
+    public String toString(){
+       // System.out.println();
+        return ("(" + this.left + this.value + this.right + ")").replace("()", "");
+    }
+}
 
-// }
+
