@@ -3,10 +3,7 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 import java.util.function.Predicate;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -25,43 +22,34 @@ public class Exercises {
         return counts;
     }
 
-    // Write your first then lower case function here
-    static Optional<String> firstThenLowerCase(List<String> strings, Predicate<String> pred){
-        return strings.stream().filter(str -> pred.test(str)).findFirst().map(String::toLowerCase);    
+    static Optional<String> firstThenLowerCase(List<String> strings, Predicate<String> predicate){
+        return strings.stream().filter(str -> predicate.test(str)).findFirst().map(String::toLowerCase);    
     }
 
-    // Write your say function here
     public static class Sentence {
-        private List<String> final_sentence;
+        private List<String> finalSentence;
         public Sentence(List<String> s, String word){
-
-            
-            this.final_sentence = new ArrayList<>(s);
-            this.final_sentence.add(word);
+            this.finalSentence = new ArrayList<>(s);
+            this.finalSentence.add(word);
         }
 
-        Sentence and(String new_str){
-            return new Sentence(this.final_sentence, new_str);
+        Sentence and(String newStr){
+            return new Sentence(this.finalSentence, newStr);
         }
 
         String phrase(){
-            String final_phrase = "";
-            if(this.final_sentence.size() == 0){
+            String finalPhrase = "";
+            if(this.finalSentence.size() == 0){
                 return "";
             }
-            for(int i = 0; i < this.final_sentence.size(); i++){
-                if(final_phrase == ""){
-                    final_phrase = final_phrase + this.final_sentence.get(i);
+            for(int i = 0; i < this.finalSentence.size(); i++){
+                if(finalPhrase == ""){
+                    finalPhrase = finalPhrase + this.finalSentence.get(i);
                 } else {
-                    final_phrase = final_phrase + " " + this.final_sentence.get(i);
+                    finalPhrase = finalPhrase + " " + this.finalSentence.get(i);
                 }
-                
-            }
-
-            System.out.println();
-            System.out.println(final_phrase);
-           
-            return final_phrase;
+            }           
+            return finalPhrase;
         }
     }
 
@@ -74,35 +62,23 @@ public class Exercises {
         List<String> empty = new ArrayList<String>();
         return new Sentence(empty, "");
     }
-    
-    
 
-    // Write your line count function here
     static long meaningfulLineCount(String filename) throws IOException{
-       long count = 0;
-        try (BufferedReader file = new BufferedReader(new FileReader(filename))) {
+        long count = 0;
+        try (BufferedReader file = new BufferedReader(new FileReader(filename))){
             String line;
             while ((line = file.readLine()) != null) {
-                System.out.println(line.trim());
                 if(!(line.trim().isEmpty())){
                     if(!(line.trim().charAt(0) == '#')){
                         count++;
                     }
                 }
             }
-        } catch (IOException e) {
-            throw new FileNotFoundException("No such file");
         }
-        
         return count;
     } 
-
 }
 
-
-
-
-// Write your Quaternion record class here
 record Quaternion(double a, double b, double c, double d) {
     public static final Quaternion ZERO = new Quaternion(0.0, 0.0, 0.0, 0.0);
     public static final Quaternion I = new Quaternion(0.0, 1.0, 0.0, 0.0);
@@ -116,12 +92,12 @@ record Quaternion(double a, double b, double c, double d) {
     }
 
     public ArrayList<Double> coefficients(){
-        ArrayList<Double> coeff_list =  new ArrayList<Double>();
-        coeff_list.add(this.a);
-        coeff_list.add(this.b);
-        coeff_list.add(this.c);
-        coeff_list.add(this.d);
-        return coeff_list;
+        ArrayList<Double> coeffecients =  new ArrayList<Double>();
+        coeffecients.add(this.a);
+        coeffecients.add(this.b);
+        coeffecients.add(this.c);
+        coeffecients.add(this.d);
+        return coeffecients;
     }
 
     public Quaternion plus(Quaternion other){
@@ -144,91 +120,88 @@ record Quaternion(double a, double b, double c, double d) {
     }
 
     public String toString(){
-        String final_string = "";
+        String finalString = "";
 
         if(a == 0 && b == 0 && c == 0 && d ==0){
             return "0";
         }
 
         if(a != 0){
-            final_string += Double.toString(a);
+            finalString += Double.toString(a);
         }
 
         if(b != 0){
-            if(final_string == "" && Math.abs(b) != 1){
-                final_string += Double.toString(b) + 'i';
-            } else if(final_string == "" && b == 1){
-                final_string += 'i';
-            } else if(final_string == "" && b == -1){
-                final_string += "-i";
+            if(finalString == "" && Math.abs(b) != 1){
+                finalString += Double.toString(b) + 'i';
+            } else if(finalString == "" && b == 1){
+                finalString += 'i';
+            } else if(finalString == "" && b == -1){
+                finalString += "-i";
             } else {
                 if(b > 0){
-                    final_string += '+';
+                    finalString += '+';
                 } else {
-                    final_string += '-';
+                    finalString += '-';
                 }
 
                 if (Math.abs(b) != 1){
-                    final_string += Double.toString(Math.abs(b)) + 'i';
+                    finalString += Double.toString(Math.abs(b)) + 'i';
                 } else {
-                    final_string += 'i';
+                    finalString += 'i';
                 }
             }
         }
 
         if(c != 0){
-            if(final_string == "" && Math.abs(c) != 1){
-                final_string += Double.toString(c) + 'j';
-            } else if(final_string == "" && c == 1){
-                final_string += 'j';
-            } else if(final_string == "" && c == -1){
-                final_string += "-j";
+            if(finalString == "" && Math.abs(c) != 1){
+                finalString += Double.toString(c) + 'j';
+            } else if(finalString == "" && c == 1){
+                finalString += 'j';
+            } else if(finalString == "" && c == -1){
+                finalString += "-j";
             } else {
                 if(c > 0){
-                    final_string += '+';
+                    finalString += '+';
                 } else {
-                    final_string += '-';
+                    finalString += '-';
                 }
 
                 if (Math.abs(c) != 1){
-                    final_string += Double.toString(Math.abs(c)) + 'j';
+                    finalString += Double.toString(Math.abs(c)) + 'j';
                 } else {
-                    final_string += 'j';
+                    finalString += 'j';
                 }
             }
         }
 
         if(d != 0){
-            if(final_string == "" && Math.abs(d) != 1){
-                final_string += Double.toString(d) + 'k';
-            } else if(final_string == "" && d == 1){
-                final_string += 'k';
-            } else if(final_string == "" && d == -1){
-                final_string += "-k";
+            if(finalString == "" && Math.abs(d) != 1){
+                finalString += Double.toString(d) + 'k';
+            } else if(finalString == "" && d == 1){
+                finalString += 'k';
+            } else if(finalString == "" && d == -1){
+                finalString += "-k";
             } else {
                 if(d > 0){
-                    final_string += '+';
+                    finalString += '+';
                 } else {
-                    final_string += '-';
+                    finalString += '-';
                 }
 
                 if (Math.abs(d) != 1){
-                    final_string += Double.toString(Math.abs(d)) + 'k';
+                    finalString += Double.toString(Math.abs(d)) + 'k';
                 } else {
-                    final_string += 'k';
+                    finalString += 'k';
                 }
             }
         }
-        System.out.println();
-        System.out.println(final_string);
-        return final_string;
+        return finalString;
     }
 }
 
-// Write your BinarySearchTree sealed interface and its implementations here
 sealed interface BinarySearchTree permits Empty, Node {
     int size();
-    BinarySearchTree insert(String new_val);
+    BinarySearchTree insert(String newVal);
     Boolean contains(String valToCheck);
     String toString();
 
@@ -252,7 +225,6 @@ final class Empty implements BinarySearchTree{
     }
 }
 
-
 final class Node implements BinarySearchTree{
     private String value;
     private BinarySearchTree left;
@@ -267,11 +239,11 @@ final class Node implements BinarySearchTree{
         return 1 + this.left.size() + this.right.size();
     }
 
-    public BinarySearchTree insert(String new_val) {
-        if (new_val.compareTo(this.value) > 0) {
-            return new Node(this.value, this.left, this.right.insert(new_val));
-        } else if (new_val.compareTo(this.value) < 0) {
-            return new Node(this.value, this.left.insert(new_val), this.right);
+    public BinarySearchTree insert(String newVal) {
+        if (newVal.compareTo(this.value) > 0) {
+            return new Node(this.value, this.left, this.right.insert(newVal));
+        } else if (newVal.compareTo(this.value) < 0) {
+            return new Node(this.value, this.left.insert(newVal), this.right);
         } else {
             return this;
         }
@@ -279,18 +251,15 @@ final class Node implements BinarySearchTree{
 
     public Boolean contains(String valToCheck){
         if (valToCheck.compareTo(this.value) == 0) {
-            return true; // The current node is the value we're looking for
+            return true;
         } else if (valToCheck.compareTo(this.value) < 0) {
-            return this.left.contains(valToCheck); // Search the left subtree
+            return this.left.contains(valToCheck); 
         } else {
-            return this.right.contains(valToCheck); // Search the right subtree
+            return this.right.contains(valToCheck); 
         }
     }
 
-    
-
     public String toString(){
-       // System.out.println();
         return ("(" + this.left + this.value + this.right + ")").replace("()", "");
     }
 }

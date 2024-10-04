@@ -4,7 +4,6 @@ import java.io.FileReader
 import java.io.IOException
 import Quaternion
 
-
 fun change(amount: Long): Map<Int, Long> {
     require(amount >= 0) { "Amount cannot be negative" }
     
@@ -17,70 +16,57 @@ fun change(amount: Long): Map<Int, Long> {
     return counts
 }
 
-// Write your first then lower case function here
 fun firstThenLowerCase(strings: List<String>, predicate: (String) -> Boolean): String?{
-    var final_string: String? = null
+    var loweredString: String? = null
     for(str in strings){
         if(predicate(str) == true){
-            final_string = str.lowercase() 
+            loweredString = str.lowercase() 
             break
         }
     }
-    return final_string
+    return loweredString
 }
 
-// Write your say function here
 fun say(word: String): Sentence{
     var empty: MutableList<String> = mutableListOf()
     return Sentence(word, empty)
 }
 
-
 fun say(): Sentence{
     var empty: MutableList<String> = mutableListOf()
     return Sentence("", empty,)
-   
 }
 
-class Sentence(var word: String, var str_list: MutableList<String>){
-    var final_list: MutableList<String> = str_list
+class Sentence(var word: String, var previousWords: MutableList<String>){
+    var words: MutableList<String> = previousWords
     var phrase: String = ""
     init{
-        final_list.add(word)
-        phrase = final_list.joinToString(" ")
+        words.add(word)
+        phrase = words.joinToString(" ")
     }
     
-    fun and(new_word: String): Sentence{
-        val newList = final_list.toMutableList()  // Create a copy of the current list
-        return Sentence(new_word, newList) 
+    fun and(newWord: String): Sentence{
+        val newWords = words.toMutableList()  
+        return Sentence(newWord, newWords) 
     }
 }
 
-// Write your meaningfulLineCount function here
 fun meaningfulLineCount(filemame: String): Long {
-    var line_count: Long = 0;
-    try{
-        val file: File = File(filemame)
+    var lineCount: Long = 0;
+    val file: File = File(filemame)
         file.bufferedReader().use { reader ->
             reader.forEachLine { line ->
-                var trimmed_line: String = line.trim()
-                if((trimmed_line.isNotEmpty())){
-                    if(trimmed_line.first() != '#'){
-                        line_count++
+                var trimmedLine: String = line.trim()
+                if((trimmedLine.isNotEmpty())){
+                    if(trimmedLine.first() != '#'){
+                        lineCount++
                     }
                 }
             }
-        
-
-            
-            }
-    } catch(e: IOException) {
-        throw IOException("No such file", e)
-    }
-    return line_count
+        }
+    return lineCount
  }
 
-// Write your Quaternion data class here
 data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double){
     companion object{
         val ZERO: Quaternion = Quaternion(0.0, 0.0, 0.0, 0.0)
@@ -116,90 +102,89 @@ data class Quaternion(val a: Double, val b: Double, val c: Double, val d: Double
     }
 
     override fun toString(): String{
-        var final_string: String = ""
+        var finalString: String = ""
 
         if(a == 0.0 && b == 0.0 && c == 0.0 && d == 0.0){
             return "0";
         }
 
         if(a != 0.0){
-            final_string += a.toString();
+            finalString += a.toString();
         }
 
         if(b != 0.0){
-            if(final_string == "" && Math.abs(b) != 1.0){
-                final_string += b.toString() + 'i';
-            } else if(final_string == "" && b == 1.0){
-                final_string += 'i';
-            } else if(final_string == "" && b == -1.0){
-                final_string += "-i";
+            if(finalString == "" && Math.abs(b) != 1.0){
+                finalString += b.toString() + 'i';
+            } else if(finalString == "" && b == 1.0){
+                finalString += 'i';
+            } else if(finalString == "" && b == -1.0){
+                finalString += "-i";
             } else {
                 if(b > 0){
-                    final_string += '+';
+                    finalString += '+';
                 } else {
-                    final_string += '-';
+                    finalString += '-';
                 }
 
                 if (Math.abs(b) != 1.0){
-                    final_string += Math.abs(b).toString() + 'i';
+                    finalString += Math.abs(b).toString() + 'i';
                 } else {
-                    final_string += 'i';
+                    finalString += 'i';
                 }
             }
         }
 
         if(c != 0.0){
-            if(final_string == "" && Math.abs(c) != 1.0){
-                final_string += c.toString() + 'j';
-            } else if(final_string == "" && c == 1.0){
-                final_string += 'j';
-            } else if(final_string == "" && c == -1.0){
-                final_string += "-j";
+            if(finalString == "" && Math.abs(c) != 1.0){
+                finalString += c.toString() + 'j';
+            } else if(finalString == "" && c == 1.0){
+                finalString += 'j';
+            } else if(finalString == "" && c == -1.0){
+                finalString += "-j";
             } else {
                 if(c > 0){
-                    final_string += '+';
+                    finalString += '+';
                 } else {
-                    final_string += '-';
+                    finalString += '-';
                 }
 
                 if (Math.abs(c) != 1.0){
-                    final_string += Math.abs(c).toString() + 'j';
+                    finalString += Math.abs(c).toString() + 'j';
                 } else {
-                    final_string += 'j';
+                    finalString += 'j';
                 }
             }
         }
 
         if(d != 0.0){
-            if(final_string == "" && Math.abs(d) != 1.0){
-                final_string += d.toString() + 'k';
-            } else if(final_string == "" && d == 1.0){
-                final_string += 'k';
-            } else if(final_string == "" && d == -1.0){
-                final_string += "-k";
+            if(finalString == "" && Math.abs(d) != 1.0){
+                finalString += d.toString() + 'k';
+            } else if(finalString == "" && d == 1.0){
+                finalString += 'k';
+            } else if(finalString == "" && d == -1.0){
+                finalString += "-k";
             } else {
                 if(d > 0){
-                    final_string += '+';
+                    finalString += '+';
                 } else {
-                    final_string += '-';
+                    finalString += '-';
                 }
 
                 if (Math.abs(d) != 1.0){
-                    final_string += Math.abs(d).toString() + 'k';
+                    finalString += Math.abs(d).toString() + 'k';
                 } else {
-                    final_string += 'k';
+                    finalString += 'k';
                 }
             }
         }
-        return final_string
+        return finalString
     }
     
 }
 
-// Write your Binary Search Tree interface and implementing classes here
 sealed interface BinarySearchTree{
     fun size(): Int
-    fun insert(new_val: String): BinarySearchTree
+    fun insert(newVal: String): BinarySearchTree
     fun contains(valToCheck: String): Boolean
     override fun toString(): String
     
@@ -208,8 +193,8 @@ sealed interface BinarySearchTree{
             return 0
         }
 
-        override fun insert(new_val: String): BinarySearchTree{
-            return Node(new_val, Empty, Empty)
+        override fun insert(newVal: String): BinarySearchTree{
+            return Node(newVal, Empty, Empty)
         }
 
         override fun contains(valToCheck: String): Boolean{
@@ -226,11 +211,11 @@ sealed interface BinarySearchTree{
             return 1 + this.left.size() + this.right.size()
         }
 
-        override fun insert(new_val: String): BinarySearchTree{
-            if (new_val.compareTo(this.value) > 0) {
-                return Node(this.value, this.left, this.right.insert(new_val))
-            } else if (new_val.compareTo(this.value) < 0) {
-                return Node(this.value, this.left.insert(new_val), this.right)
+        override fun insert(newVal: String): BinarySearchTree{
+            if (newVal.compareTo(this.value) > 0) {
+                return Node(this.value, this.left, this.right.insert(newVal))
+            } else if (newVal.compareTo(this.value) < 0) {
+                return Node(this.value, this.left.insert(newVal), this.right)
             } else {
                 return this
             }
