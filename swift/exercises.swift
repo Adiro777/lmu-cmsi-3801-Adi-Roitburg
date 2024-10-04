@@ -66,6 +66,8 @@ func meaningfulLineCount(_ filename: String) async -> Result<Int, Error>{
     return .success(line_count)
 }
 
+
+
 // Write your Quaternion struct here
 struct Quaternion: Equatable, CustomStringConvertible{
     var a: Double = 0.0
@@ -85,8 +87,7 @@ struct Quaternion: Equatable, CustomStringConvertible{
     var conjugate: Quaternion {
         return Quaternion(a: self.a, b: -self.b, c: -self.c, d: -self.d)
     }
-
-
+    
     static func + (quatOne: Quaternion, quatTwo: Quaternion) -> Quaternion {
         return Quaternion(a: quatOne.a + quatTwo.a, b: quatOne.b + quatTwo.b, c: quatOne.c + quatTwo.c, d: quatOne.d + quatTwo.d)
     }
