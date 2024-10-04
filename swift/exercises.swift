@@ -15,60 +15,53 @@ func change(_ amount: Int) -> Result<[Int:Int], NegativeAmountError> {
     return .success(counts)
 }
 
-// Write your first then lower case function here
 func firstThenLowerCase(of strings: [String]?, satisfying predicate: (String) -> Bool) -> String?{
    return strings?.first(where: predicate)?.lowercased()
 }
 
-// Write your say function here
 struct Sentence {
     var phrase: String
-    var phrase_array: [String]
-    init(new_word: String, array: [String]){
-        phrase_array = array
-        phrase_array.append(new_word)
-        phrase = phrase_array.joined(separator: " ")
-        
+    var words: [String]
+    init(newWord: String, array: [String]){
+        words = array
+        words.append(newWord)
+        phrase = words.joined(separator: " ")
     }
 
-    func and(_ word_to_add: String) -> Sentence{
-        return Sentence(new_word: word_to_add, array: phrase_array)
+    func and(_ newWord: String) -> Sentence{
+        return Sentence(newWord: newWord, array: words)
     }
 }
 
 func say(_ word: String) -> Sentence{
     let empty: [String] = []
-    return Sentence(new_word: word, array: empty)
+    return Sentence(newWord: word, array: empty)
 }
 
 func say() -> Sentence{
      let empty: [String] = []
-     return Sentence(new_word: "", array: empty)
+     return Sentence(newWord: "", array: empty)
 }
 
-// Write your meaningfulLineCount function here
 func meaningfulLineCount(_ filename: String) async -> Result<Int, Error>{
-    var line_count: Int = 0
-    let file_url:URL = URL(fileURLWithPath: filename)
+    var lineCount: Int = 0
+    let filrUrl:URL = URL(fileURLWithPath: filename)
     do{
-        for try await line in file_url.lines{
+        for try await line in filrUrl.lines{
             print(line)
-            let trimmed_line: String = line.trimmingCharacters(in: .whitespaces)
-            if !trimmed_line.isEmpty{
-                if trimmed_line[trimmed_line.startIndex] != "#"{
-                    line_count += 1
+            let trimmedLine: String = line.trimmingCharacters(in: .whitespaces)
+            if !trimmedLine.isEmpty{
+                if trimmedLine[trimmedLine.startIndex] != "#"{
+                    lineCount += 1
                 }
             }
         } 
     } catch {
         return .failure(NoSuchFileError())
     }
-    return .success(line_count)
+    return .success(lineCount)
 }
 
-
-
-// Write your Quaternion struct here
 struct Quaternion: Equatable, CustomStringConvertible{
     var a: Double = 0.0
     var b: Double = 0.0
@@ -175,12 +168,10 @@ struct Quaternion: Equatable, CustomStringConvertible{
                 }
             }
         }
-
         return finalString
     }
 }
 
-// Write your Binary Search Tree enum here
 indirect enum BinarySearchTree: CustomStringConvertible{
     case empty
     case node(value: String, left: BinarySearchTree, right: BinarySearchTree)
@@ -223,8 +214,6 @@ indirect enum BinarySearchTree: CustomStringConvertible{
                     return right.contains(valToCheck)
                 }
         }
-
-        
     }
 
     var description: String{
@@ -234,7 +223,5 @@ indirect enum BinarySearchTree: CustomStringConvertible{
                 case .node(let value, let left, let right ):
                     return ("(\(left)\(value)\(right))").replacingOccurrences(of: "()", with: "")
             }
-        }
-
-    
+        }   
 }
