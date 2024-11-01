@@ -15,7 +15,6 @@ export function change(amount: bigint): Map<bigint, bigint> {
   return counts
 }
 
-// Write your first then apply function her
 export function firstThenApply<T, U>(items: T[], predicate: (item: T) => Boolean, consumer: (item: T) => U): U | undefined{
   const element: T | undefined = items.find((item) => predicate(item))
   if(element !== undefined){
@@ -24,35 +23,27 @@ export function firstThenApply<T, U>(items: T[], predicate: (item: T) => Boolean
   return undefined
 }
 
-// Write your powers generator here
 export function* powersGenerator(base: bigint): Generator<bigint>{
   for(let power = 1n; ;power *= base){
     yield power
   }
-
 }
 
-// Write your line count function here
 export async function meaningfulLineCount(filename: PathLike): Promise<number>{
   let num_of_lines = 0
-  try{
-    const data = await open(filename, 'r')
-    for await(const line of data.readLines()){
-      const trimmed_line = line.trim()
-      if(trimmed_line === '' || trimmed_line[0] === '#'){
-        continue
-      } else {
-        num_of_lines++
-      }
-    }    
-  } catch {
-    throw new Error("throws if no such file") 
-  }
-
+  
+  const data = await open(filename, 'r')
+  for await(const line of data.readLines()){
+    const trimmed_line = line.trim()
+    if(trimmed_line === '' || trimmed_line[0] === '#'){
+      continue
+    } else {
+      num_of_lines++
+    }
+  }    
   return num_of_lines
 }
 
-// Write your shape type and associated functions here
 interface Sphere{
   kind: "Sphere"
   radius: number
@@ -82,8 +73,6 @@ export function volume(shape: Shape): number{
     return shape.width * shape.length * shape.depth
   }
 }
-
-// Write your binary search tree implementation here
 
 export interface BinarySearchTree<T>{
   size(): number
@@ -137,7 +126,6 @@ export class Node<T> implements BinarySearchTree<T>{
     } else {
         return this;
     }
-
   }
 
   contains(value: T){
@@ -151,8 +139,8 @@ export class Node<T> implements BinarySearchTree<T>{
   }
 
   *inorder(): Iterable<T> {
-    yield* this.left.inorder()  // Visit left subtree
-    yield this.value;              // Visit current node
+    yield* this.left.inorder() 
+    yield this.value;              
     yield* this.right.inorder()
   }
 

@@ -12,21 +12,17 @@ let change amount =
     in
     aux amount denominations
 
-(* Write your first then apply function here *)
 let first_then_apply array predicate consumer = 
   match List.find_opt predicate array with
   | None -> None
   | Some x -> consumer x;;
 
-(* Write your powers generator here *)
 let powers_generator base =
   let rec generate_from power () =
     Seq.Cons (power, generate_from (power * base))
   in
   generate_from 1;;
 
-
-(* Write your line count function here *)
 let meaningful_line_count filename =
   let meaningful_line line =
     let trimmed = String.trim line in
@@ -60,7 +56,6 @@ let surface_area s =
   | Sphere r -> 4.0 *. Float.pi *. (r ** 2.0)
   | Box (l, w, h) -> 2.0 *. (l *. w +. l *. h +. w *. h);;
 
-(* Write your binary search tree implementation here *)
 type 'a binary_search_tree = 
   | Empty
   | Node of 'a binary_search_tree * 'a * 'a binary_search_tree
