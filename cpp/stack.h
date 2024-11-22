@@ -21,31 +21,76 @@ using namespace std;
 
 template <typename T>
 class Stack {
+  unique_ptr<T[]> elements;
+  int capacity;
+  int top;
+
   // Add three fields: elements, a smart pointer to the array of elements,
   // capacity, the current capacity of the array, and top, the index of the
   // next available slot in the array.
 
   // Prohibit copying and assignment
+  Stack(const Stack<T>&) = delete;
+  Stack<T>& operator=(const Stack<T>&) = delete;  
   
 public:
-  // Write your stack constructor here
+  Stack():
+    top(0), 
+    capacity(INITIAL_CAPACITY),
+    elements(make_unique<T[]>(INITIAL_CAPACITY)) {
+    }
 
-  // Write your size() method here
+  int size() const {
+    return top;
+  }
 
-  // Write your is_empty() method here
+  bool is_empty() const {
+    return top == 0;
+  }
 
-  // Write your is_full() method here
+  bool is_full() const {
+    return top == MAX_CAPACITY;
+  }
 
-  // Write your push() method here
+  void push(T item) {
+    if (top == MAX_CAPACITY) {
+      throw overflow_error("Stack has reached maximum capacity");
+    }
+    if (top == capacity) {
+      reallocate(2 * capacity);
+    }
+      elements[top++] = item;
+  }
 
-  // Write your pop() method here
+  T pop() {
+    if (is_empty()) {
+      throw underflow_error("cannot pop from empty stack");
+    }
+
+    T top_element = elements[--top]; 
+    elements[top] = T();
+
+    if (top <= capacity / 4) {
+        reallocate(capacity / 2);
+    }
+
+    return top_element;
+}
+
 
 private:
-  // We recommend you make a PRIVATE reallocate method here. It should
-  // ensure the stack capacity never goes above MAX_CAPACITY or below
-  // INITIAL_CAPACITY. Because smart pointers are involved, you will need
-  // to use std::move() to transfer ownership of the new array to the stack
-  // after (of course) copying the elements from the old array to the new
-  // array with std::copy().
+  void reallocate(int new_capacity) {
+    if (new_capacity > MAX_CAPACITY) {
+      new_capacity = MAX_CAPACITY;
+    }
+    if (new_capacity < INITIAL_CAPACITY) {
+      new_capacity = INITIAL_CAPACITY;
+    }
+
+    auto new_elements = make_unique<T[]>(new_capacity);
+    std::copy(elements.get(), elements.get() + top, new_elements.get());
+    elements = std::move(new_elements);
+    capacity = new_capacity;
+  }
 
 };
